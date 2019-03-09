@@ -1,3 +1,6 @@
 [submodule "Numerical-Analysis-Projects"]
 	path = Numerical-Analysis-Projects
 	url = https://github.com/x64Eddie/Numerical-Analysis-Projects.git
+[submodule "DataStructuresProjects"]
+	path = DataStructuresProjects
+	url = https://github.com/x64Eddie/DataStructuresProjects.git
