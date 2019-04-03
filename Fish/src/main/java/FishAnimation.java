@@ -46,6 +46,7 @@ class FishAnimation extends JPanel {
     public void paint(Graphics g) {
         super.paint(g);
         g.drawImage(backgroundImage, 0, 0, this);
-        fish.draw();
+        fish.update();
+        fish.draw(g);
     }
 }
