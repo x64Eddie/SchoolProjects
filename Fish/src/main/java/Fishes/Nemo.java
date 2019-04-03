@@ -2,6 +2,7 @@ package Fishes;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
@@ -29,10 +30,11 @@ public class Nemo extends Fish {
         this(50, 50, dimension, path);
     }
 
-    Nemo(int x, int y, Dimension dimension, String path) {
+    public Nemo(int x, int y, Dimension dimension, String path) {
         super(dimension);
         this.x = x;
         this.y = y;
+        this.xVelocity = 20;
         try {
             ImageInputStream stream = ImageIO.createImageInputStream(new File(path).getAbsoluteFile());
             this.imageReader = ImageIO.getImageReaders(stream).next();
@@ -46,13 +48,14 @@ public class Nemo extends Fish {
 
     @Override
     public void draw(Graphics graphics) {
-        graphics.drawImage(image, x, y, null);
+        graphics.drawImage(
+            image.getScaledInstance(50, 50, Image.SCALE_SMOOTH), x, y, null);
     }
 
     @Override
     public void update() {
-        if(x > SCREEN_WIDTH)x -= xVelocity;
-        if(x < 0)x += xVelocity;
+        if(x < SCREEN_WIDTH || x < 0)this.x += xVelocity;
+        else x -= xVelocity;
     }
 
 }

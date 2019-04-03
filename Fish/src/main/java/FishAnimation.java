@@ -1,4 +1,5 @@
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -21,6 +22,7 @@ import Fishes.*;
 class FishAnimation extends JPanel {
 
     private BufferedImage backgroundImage;
+    private Image image;
     private ImageReader imageReader;
     private Fish fish;
     private Timer timer;
@@ -48,7 +50,7 @@ class FishAnimation extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(backgroundImage, 0, 0, this);
+        g.drawImage(backgroundImage.getScaledInstance(600, 300, Image.SCALE_SMOOTH), 0, 0, this);
     }
 
 
