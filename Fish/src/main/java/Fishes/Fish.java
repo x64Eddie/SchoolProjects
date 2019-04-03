@@ -3,7 +3,6 @@ package Fishes;
 import java.awt.Dimension;
 import java.awt.Graphics;
 
-import javax.annotation.Nonnull;
 
 /**
  * Represents all the fish that are going to be swimming in the water.

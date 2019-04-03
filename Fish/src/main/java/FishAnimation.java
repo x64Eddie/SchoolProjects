@@ -6,8 +6,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import javax.annotation.Nonnull;
 import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
+import javax.imageio.stream.ImageInputStream;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -19,15 +20,18 @@ import Fishes.*;
  */
 class FishAnimation extends JPanel {
 
-
     private BufferedImage backgroundImage;
+    private ImageReader imageReader;
     private Fish fish;
     private Timer timer;
 
 
-    FishAnimation(@Nonnull String backgroundPath, @Nonnull Fish fish){
+    FishAnimation(String backgroundPath, Fish fish){
         try{
-            this.backgroundImage = ImageIO.read(new File(backgroundPath));
+            ImageInputStream stream = ImageIO.createImageInputStream(new File(backgroundPath).getAbsoluteFile());
+            this.imageReader = ImageIO.getImageReaders(stream).next();
+            imageReader.setInput(stream);
+            this.backgroundImage = imageReader.read(0,imageReader.getDefaultReadParam());
             this.fish = fish;
             this.timer = new Timer(100, new ActionListener(){
                 @Override
@@ -41,11 +45,16 @@ class FishAnimation extends JPanel {
         }
     }
 
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(backgroundImage, 0, 0, this);
+    }
+
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        g.drawImage(backgroundImage, 0, 0, this);
         fish.update();
         fish.draw(g);
     }
