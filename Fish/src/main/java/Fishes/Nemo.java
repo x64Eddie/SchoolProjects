@@ -36,7 +36,7 @@ public class Nemo extends Fish {
         this.x = x;
         this.y = y;
         this.xVelocity = 15;
-        this.yVelocity = 10;
+        this.yVelocity = 20;
         try {
             ImageInputStream stream = ImageIO.createImageInputStream(new File(path).getAbsoluteFile());
             this.imageReader = ImageIO.getImageReaders(stream).next();
