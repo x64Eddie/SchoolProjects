@@ -22,9 +22,10 @@ import Fishes.*;
  */
 public class Nemo extends Fish {
 
-    private int x, y, xVelocity;
+    private int x, y, xVelocity, yVelocity;
     private ImageReader imageReader;
     private BufferedImage image;
+    private boolean goingRight = true, goingUp = true;
 
     public Nemo(Dimension dimension, String path) {
         this(50, 50, dimension, path);
@@ -34,7 +35,8 @@ public class Nemo extends Fish {
         super(dimension);
         this.x = x;
         this.y = y;
-        this.xVelocity = 20;
+        this.xVelocity = 15;
+        this.yVelocity = 10;
         try {
             ImageInputStream stream = ImageIO.createImageInputStream(new File(path).getAbsoluteFile());
             this.imageReader = ImageIO.getImageReaders(stream).next();
@@ -54,8 +56,36 @@ public class Nemo extends Fish {
 
     @Override
     public void update() {
-        if(x < SCREEN_WIDTH || x < 0)this.x += xVelocity;
-        else x -= xVelocity;
+         updateX();
+         updateY();
+    }
+
+    /**
+     * Updating the x-position of the fish
+     */
+    private void updateX(){
+        if(x < 0)this.goingRight = true;
+        if(x > SCREEN_WIDTH)this.goingRight = false;
+        if(goingRight){
+            x += xVelocity;
+        }
+        else{
+            x-=xVelocity;
+        }
+    }
+
+    /**
+     * updating the y-position of the fish.
+     */
+    private void updateY(){
+        if(goingUp){
+            y -= yVelocity;
+            goingUp = false;
+        }
+        else{
+            y += yVelocity;
+            goingUp = true;
+        }
     }
 
 }
