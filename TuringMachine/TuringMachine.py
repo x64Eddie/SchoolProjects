@@ -2,18 +2,34 @@
 state = {0:'start', 1:'move', 2:'back', 3:'halt', 4:'unaccepted'}
 symbol = {0:0, 1:1, 2:'_'}
 
-def initTuringMachine(states, symbols, leftRight):
-    print("______________________________")
-    print("states:%s\nsymbols%s\nleftRight:%s",states,symbols, leftRight)
+'''
+n - Number of states
+m - Number of symbols
+states - Rules for States
+symbols - Rules for Symbols
+leftRight - Rules foes left and right direction
+tape - input
+'''
+def initTuringMachine(n, m, states, symbols, leftRight, tape):
+    head = 0
+    currentState = 0
+    newSymbol = 0
+    while(currentState < n-2):
+        currentSymbol = tape[head]
+        newSymbol = symbols[currentState][currentSymbol]
+        tape[head] = newSymbol
+        if leftRight[currentState][currentSymbol] == 'l':head-=1
+        else: head+=1
+        print("Current State: %s Current Symbol: %s Direction: %s"% (currentState, currentSymbol, leftRight[currentState][currentSymbol]))
 
-def printingState(s0, s1, sym, symbols):
-     print('%s --%d--> %s'%
-    (('(S%s)'% s0 if symbols[s0] else 'S'+str(s0)),str(symbol[sym]),
-    ('(S%s)'% s1 if symbols[s1] else 'S'+str(s1))))
-
+        currentState = states[currentState][currentSymbol]
+    print("Tape Final Readings:" ,tape)
 
 states = [[4, 4, 1],[2, 1, 2],[2, 2, 3], [3, 3, 3]]
 symbols = [[2, 2, 2], [1, 0, 1], [0, 1, 2], [2, 2, 2], [3, 3, 3]]
 leftRight = [['r', 'r', 'r'], ['l', 'r', 'l'], ['l', 'l', 'l'], ['l', 'l', 'l'], ['l', 'l', 'l']]
-
+tape = [2, 1, 1, 0]
+n = 5
+m = 3
+initTuringMachine(n, m, states, symbols, leftRight, tape)
     
