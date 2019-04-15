@@ -20,10 +20,11 @@ def initTuringMachine(n, m, states, symbols, leftRight, tape):
         tape[head] = newSymbol
         if leftRight[currentState][currentSymbol] == 'l':head-=1
         else: head+=1
-        print("Current State: %s Current Symbol: %s Direction: %s"% (currentState, currentSymbol, leftRight[currentState][currentSymbol]))
+        print("Current State: %s ----->%s \tDirection: %s"% (state[currentState],
+         symbol[currentSymbol], leftRight[currentState][currentSymbol]))
 
         currentState = states[currentState][currentSymbol]
-    print("Tape Final Readings:" ,tape)
+    print("Tape Final Readings:" ,[symbol[i] for i in tape], "Unaccepted" if currentState > n-2 else "Accepted")
 
 states = [[4, 4, 1],[2, 1, 2],[2, 2, 3], [3, 3, 3]]
 symbols = [[2, 2, 2], [1, 0, 1], [0, 1, 2], [2, 2, 2], [3, 3, 3]]
